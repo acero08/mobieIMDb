@@ -35,6 +35,7 @@ router.get('/search', isAuthenticated, async (req, res) => {
   }
 });
 
+// Ruta para agregar a favoritos
 router.post('/favorites', isAuthenticated, async (req, res) => {
   try {
     const { movieId, title, posterPath, releaseDate } = req.body;
@@ -47,6 +48,7 @@ router.post('/favorites', isAuthenticated, async (req, res) => {
     const favorite = await movieDAO.addFavorite(userId, movieId, title, posterPath, releaseDate);
     res.status(201).json(favorite);
   } catch (error) {
+    console.error("Error al agregar favorito:", error);
     res.status(500).json({ error: 'Failed to add favorite', details: error.message });
   }
 });

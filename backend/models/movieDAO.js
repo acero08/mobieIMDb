@@ -1,4 +1,4 @@
-// models/movieDAO.js
+//backend/models/movieDAO.js
 const pool = require('../database');
 
 class MovieDAO {

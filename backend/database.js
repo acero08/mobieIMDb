@@ -1,6 +1,12 @@
-
 // backend/database.js
 const { Pool } = require('pg');
+
+console.log('=== Database Pool Configuration ===');
+console.log('Host:', process.env.DB_HOST);
+console.log('Port:', process.env.DB_PORT);
+console.log('Database:', process.env.DB_NAME);
+console.log('User:', process.env.DB_USER);
+console.log('===================================\n');
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -14,11 +20,11 @@ const pool = new Pool({
 });
 
 pool.on('connect', () => {
-  console.log('Database connected');
+  console.log('✓ Database connected successfully');
 });
 
 pool.on('error', (err) => {
-  console.error('Database error:', err);
+  console.error('✗ Database error:', err);
 });
 
 module.exports = pool;
