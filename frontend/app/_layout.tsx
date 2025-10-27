@@ -1,32 +1,22 @@
 // frontend/app/_layout.tsx
 import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
-import { authAPI } from "../services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function RootLayout() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [hasToken, setHasToken] = useState<boolean | null>(null);
 
   useEffect(() => {
-    checkAuth();
+    AsyncStorage.getItem("authToken").then((token) => {
+      setHasToken(!!token);
+    });
   }, []);
 
-  const checkAuth = async () => {
-    try {
-      const response = await authAPI.getCurrentUser();
-      setIsAuthenticated(response.authenticated);
-    } catch (error) {
-      setIsAuthenticated(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) return null;
+  if (hasToken === null) return null;
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      {!isAuthenticated ? (
+      {!hasToken ? (
         <Stack.Screen name="(auth)/login" />
       ) : (
         <Stack.Screen name="(tabs)" />

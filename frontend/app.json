@@ -38,6 +38,7 @@
     "plugins": [
       "expo-web-browser",
       "expo-router"
+  
     ]
   }
 }
