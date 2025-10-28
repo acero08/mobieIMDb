@@ -19,7 +19,7 @@ passport.use('google', new GoogleStrategy({
     const user = await movieDAO.createUser(googleId, email, displayName);
     return done(null, user);
   } catch (error) {
-    console.error('❌ Google auth error:', error);
+    console.error(' Google auth error:', error);
     return done(error, null);
   }
 }));
@@ -41,7 +41,7 @@ router.get('/google/callback',
     if (!req.user) {
       return res.redirect('/auth/failure?error=user_not_found');
     }
-
+//se cre al toke jwt
     const token = jwt.sign(
       { id: req.user.id },
       process.env.SESSION_SECRET,
@@ -57,7 +57,7 @@ router.get('/google/callback',
       }
     }
 
-    // TODOS usan query param
+    
     const separator = redirectUrl.includes('?') ? '&' : '?';
     res.redirect(`${redirectUrl}${separator}token=${token}`);
   }

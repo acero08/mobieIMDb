@@ -1,4 +1,6 @@
 //backend/database.js
+
+// moovieDao pise pueda usarlo par aejecurtar consultas sql
 const { Pool } = require('pg');
 
 console.log('=== Database Pool Configuration ===');

@@ -1,21 +1,18 @@
 // backend/routes/movieRoutes.js
 const express = require('express');
 const axios = require('axios');
-const passport = require('passport'); // Necesitamos passport aquí
+const passport = require('passport'); 
 const movieDAO = require('../models/movieDAO');
 
 const router = express.Router();
 
-// --- Middleware de Autenticación JWT ---
-// Esta función ahora usa la estrategia 'jwt' que configuramos en server.js
-// session: false es crucial para JWT
+
 const isAuthenticated = passport.authenticate('jwt', { session: false });
 
-// --- Rutas (sin cambios en la lógica interna, solo aplica el nuevo middleware) ---
 
 router.get('/search', isAuthenticated, async (req, res) => {
   console.log('GET /search (JWT)');
-  // req.user está disponible aquí si el token es válido
+
   try {
     const { query } = req.query;
     if (!query) {
